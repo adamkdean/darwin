@@ -1,1 +1,41 @@
-body { background: #eee; }
+$label-offset: 8px;
+
+canvas {
+	background: white;
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+p {
+	&.label {
+		position: absolute;
+		padding: 1px;
+		margin: 0;
+
+		background: white;
+		border: 1px solid black;
+		font-family: "Courier New", monospace;
+		font-size: 12px;
+
+		&.top-left {
+			top: $label-offset;
+			left: $label-offset;
+		}
+
+		&.top-right {
+			top: $label-offset;
+			right: $label-offset;
+		}
+
+		&.bottom-left {
+			bottom: $label-offset;
+			left: $label-offset;
+		}
+
+		&.bottom-right {
+			bottom: $label-offset;
+			right: $label-offset;
+		}
+	}
+}
