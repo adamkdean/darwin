@@ -7,11 +7,15 @@
 	<link rel="stylesheet" href="css/darwin.min.css">
 </head>
 <body>
+
+	<!-- canvas -->
 	<canvas id="canvas"></canvas>
-	<p id="tl" class="label top-left">Darwin Project</p>
-	<p id="tr" class="label top-right">v0.0.1</p>
-	<p id="bl" class="label bottom-left">Idle</p>
-	<p id="br" class="label bottom-right">Alive 0</p>
+
+	<!-- status labels -->
+	<p id="tl" class="label top-left"></p>
+	<p id="tr" class="label top-right"></p>
+	<p id="bl" class="label bottom-left"></p>
+	<p id="br" class="label bottom-right"></p>
 
 	<!-- libraries -->
 	<script src="js/libs/jquery-2.0.3.min.js"></script>
@@ -19,7 +23,9 @@
 	<script src="js/libs/ClientSize.js"></script>
 	
 	<!-- app -->
+	<script src="js/app/labels.js"></script>
 	<script src="js/app/canvas.js"></script>
 	<script src="js/app/main.js"></script>
+	
 </body>
 </html>

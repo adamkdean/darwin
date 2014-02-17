@@ -10,11 +10,14 @@ var Canvas = function(id) {
 		gridLineColour = '#dedede';
 
 	var init = function() {
+		// set listeners
+		window.addEventListener('resize', resize, false);
+
 		// initialise
 		resize();
 
-		// set listeners
-		window.addEventListener('resize', resize, false);
+		Labels.setLabel('bl', 'Loop: deactivated');
+		Labels.setLabel('br', 'Status: idle');
 	};
 
 	var resize = function () {
