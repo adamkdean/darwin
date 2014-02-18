@@ -16,8 +16,7 @@ var Canvas = function(id) {
 		// initialise
 		resize();
 
-		Labels.setLabel('bl', 'Loop: deactivated');
-		Labels.setLabel('br', 'Status: idle');
+		
 	};
 
 	var resize = function () {

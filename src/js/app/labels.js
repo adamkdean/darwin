@@ -5,5 +5,11 @@ var Labels = {
 		if (label) {
 			label.text(text);
 		}
-	}
+	},
+	hideLabel: function(label) {
+		$('#' + label).hide();
+	},
+	showLabel: function(label) {
+		$('#' + label).show();
+	},
 };
