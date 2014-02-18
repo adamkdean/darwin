@@ -9,14 +9,20 @@ var Canvas = function(id) {
 		halfCanvasHeight = 0,
 		gridLineColour = '#dedede';
 
+	var animFrame = window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            window.oRequestAnimationFrame      ||
+            window.msRequestAnimationFrame     ||
+            null;
+
+    var updateCount = 0;
+
 	var init = function() {
-		// set listeners
 		window.addEventListener('resize', resize, false);
 
-		// initialise
 		resize();
-
-		
+		animFrame(loop);
 	};
 
 	var resize = function () {
@@ -26,14 +32,28 @@ var Canvas = function(id) {
 		halfCanvasHeight = canvasHeight / 2;
 		canvas.setAttribute('width', canvasWidth);
 		canvas.setAttribute('height', canvasHeight);
-		render();
+		draw();
 	};
 
-	var render = function() {
-		context.clearRect(0, 0, canvasWidth, canvasHeight);
+	var loop = function() {
+		update();
+		draw();
+		animFrame(loop);
+	};
 
+	var update = function() {
+		// update
+		updateCount++;
+	};
+
+	var draw = function() {
+		// draw
+		context.clearRect(0, 0, canvasWidth, canvasHeight);
+		
 		drawGridLines();
 		drawCircles();
+
+		Labels.setLabel('bl', updateCount);
 	};
 
 	var drawGridLines = function() {

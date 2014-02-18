@@ -1,6 +1,5 @@
 var Labels = {
 	setLabel: function(label, text) {
-		console.log(label);
 		var label = $('#' + label);
 		if (label) {
 			label.text(text);
