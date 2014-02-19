@@ -1,9 +1,9 @@
 var Canvas = function(id) {
-	
+
 	var canvas = document.getElementById(id),
 		context = canvas.getContext('2d'),
 		clientSize = new ClientSize(),
-		canvasWidth = 0, 
+		canvasWidth = 0,
 		canvasHeight = 0,
 		halfCanvasWidth = 0,
 		halfCanvasHeight = 0,
@@ -15,8 +15,6 @@ var Canvas = function(id) {
             window.oRequestAnimationFrame      ||
             window.msRequestAnimationFrame     ||
             null;
-
-    var updateCount = 0;
 
 	var init = function() {
 		window.addEventListener('resize', resize, false);
@@ -43,17 +41,15 @@ var Canvas = function(id) {
 
 	var update = function() {
 		// update
-		updateCount++;
+
 	};
 
 	var draw = function() {
 		// draw
 		context.clearRect(0, 0, canvasWidth, canvasHeight);
-		
+
 		drawGridLines();
 		drawCircles();
-
-		Labels.setLabel('bl', updateCount);
 	};
 
 	var drawGridLines = function() {
