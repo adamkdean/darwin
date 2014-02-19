@@ -5,7 +5,15 @@ $(function() {
 	Labels.setLabel('bl', '0');
 	Labels.setLabel('br', 'Idle');
 
-	var c = new Canvas('canvas');
-    c.init();
+	var engine = new Engine('canvas');
+    engine.addElement(new Grid());
+    engine.init();
+
+    // var drawCircles = function() {
+    //     context.beginPath();
+    //     context.arc(halfCanvasWidth, halfCanvasHeight, 10, 0, 2*Math.PI);
+    //     context.strokeStyle = '#000';
+    //     context.stroke();
+    // };
 
 });
