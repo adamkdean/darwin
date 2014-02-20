@@ -45,13 +45,15 @@ DisplayEngine.prototype.initListeners = function() {
 
 DisplayEngine.prototype.initLoop = function() {
 	this.resize();
-	this.animationFrame(window, this.loop);
+	// Uncaught TypeError: Illegal invocation
+	// this.animationFrame(window, this.loop);
 }
 
 DisplayEngine.prototype.loop = function() {
 	this.update();
 	this.draw();
-	this.animationFrame(window, this.loop);
+	// Uncaught TypeError: Illegal invocation
+	// this.animationFrame(window, this.loop);
 }
 
 DisplayEngine.prototype.update = function() {
