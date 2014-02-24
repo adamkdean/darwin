@@ -5,13 +5,17 @@ function DisplayEngine(canvasId) {
 	this.canvasWidth = 0;
 	this.canvasHeight = 0;
 	this.elements = [];
-	this.animationFrame = window.requestAnimationFrame ||
-					  	  window.webkitRequestAnimationFrame ||
-						  window.mozRequestAnimationFrame ||
-						  window.oRequestAnimationFrame ||
-						  window.msRequestAnimationFrame ||
-						  null;
 }
+
+DisplayEngine.prototype.requestAnimFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 1000 / 60);
+    };
+})();
+
 
 DisplayEngine.prototype.add = function(element) {
 	this.elements.push(element);
@@ -45,15 +49,15 @@ DisplayEngine.prototype.initListeners = function() {
 
 DisplayEngine.prototype.initLoop = function() {
 	this.resize();
-	// Uncaught TypeError: Illegal invocation
-	// this.animationFrame(window, this.loop);
+	this.loop(this);
 }
 
-DisplayEngine.prototype.loop = function() {
-	this.update();
-	this.draw();
-	// Uncaught TypeError: Illegal invocation
-	// this.animationFrame(window, this.loop);
+DisplayEngine.prototype.loop = function(instance) {
+	instance.update();
+	instance.draw();
+	this.requestAnimFrame.call(window, function() {
+		instance.loop(instance);
+	});
 }
 
 DisplayEngine.prototype.update = function() {
