@@ -1,9 +1,11 @@
 $(function() {
 	var displayEngine = new DisplayEngine('canvas');
-	var grid = new Grid();
 
+	var grid = new Grid();
 	displayEngine.add(grid);
+
+
+
+	// and we're off
 	displayEngine.init();
-	displayEngine.update();
-	displayEngine.draw();
 });
