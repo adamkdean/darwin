@@ -59,13 +59,13 @@ DisplayEngine.prototype.add = function(element) {
 	this.elements.push(element);
 }
 
-DisplayEngine.prototype.resize = function () {
-	this.canvasWidth = this.getClientWidth();
-	this.canvasHeight = this.getClientHeight();
-	this.canvas.setAttribute('width', this.canvasWidth);
-	this.canvas.setAttribute('height', this.canvasHeight);
-	this.update();
-	this.draw();
+DisplayEngine.prototype.resize = function (instance) {
+	console.log('resize');
+	instance.canvasWidth = instance.getClientWidth();
+	instance.canvasHeight = instance.getClientHeight();
+	instance.canvas.setAttribute('width', instance.canvasWidth);
+	instance.canvas.setAttribute('height', instance.canvasHeight);
+	Labels.setLabel('bl', instance.canvasWidth + 'x' + instance.canvasHeight);
 }
 
 DisplayEngine.prototype.init = function() {
@@ -82,11 +82,14 @@ DisplayEngine.prototype.initElements = function() {
 }
 
 DisplayEngine.prototype.initListeners = function() {
-	window.addEventListener('resize', this.resize, false);
+	var _this = this;
+	window.addEventListener('resize', function() {
+		_this.resize(_this);
+	}, false);
 }
 
 DisplayEngine.prototype.initLoop = function() {
-	this.resize();
+	this.resize(this);
 	this.loop(this);
 }
 
