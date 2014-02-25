@@ -65,12 +65,11 @@ DisplayEngine.prototype.resize = function (instance) {
 	instance.canvasHeight = instance.getClientHeight();
 	instance.canvas.setAttribute('width', instance.canvasWidth);
 	instance.canvas.setAttribute('height', instance.canvasHeight);
-	Labels.setLabel('bl', instance.canvasWidth + 'x' + instance.canvasHeight);
 }
 
 DisplayEngine.prototype.init = function() {
+	this.initSelf();
 	this.initElements();
-	this.initListeners();
 	this.initLoop();
 }
 
@@ -81,11 +80,16 @@ DisplayEngine.prototype.initElements = function() {
 	})
 }
 
-DisplayEngine.prototype.initListeners = function() {
+DisplayEngine.prototype.initSelf = function() {
 	var _this = this;
+
+	// add listener for resize
 	window.addEventListener('resize', function() {
 		_this.resize(_this);
 	}, false);
+
+	// call resize once
+	this.resize(this);
 }
 
 DisplayEngine.prototype.initLoop = function() {
