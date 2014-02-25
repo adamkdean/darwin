@@ -6,8 +6,9 @@ $(function() {
 	Labels.hideLabel('br');
 
 	var displayEngine = new DisplayEngine('canvas');
-	// var grid = new Grid();
+	//
+    //
+    //
+    displayEngine.init();
 
-	// displayEngine.add(grid);
-	displayEngine.init();
 });
