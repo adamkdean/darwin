@@ -12,7 +12,7 @@ DisplayEngine.prototype.getClientWidth = function() {
 		document.documentElement ? document.documentElement.clientWidth : 0,
 		document.body ? document.body.clientWidth : 0
 	);
-};
+}
 
 DisplayEngine.prototype.getClientHeight = function() {
 	return this.filterResults (
@@ -20,7 +20,7 @@ DisplayEngine.prototype.getClientHeight = function() {
 		document.documentElement ? document.documentElement.clientHeight : 0,
 		document.body ? document.body.clientHeight : 0
 	);
-};
+}
 
 DisplayEngine.prototype.getScrollLeft = function() {
 	return this.filterResults (
@@ -28,7 +28,7 @@ DisplayEngine.prototype.getScrollLeft = function() {
 		document.documentElement ? document.documentElement.scrollLeft : 0,
 		document.body ? document.body.scrollLeft : 0
 	);
-};
+}
 
 DisplayEngine.prototype.getScrollTop = function() {
 	return this.filterResults (
@@ -36,14 +36,14 @@ DisplayEngine.prototype.getScrollTop = function() {
 		document.documentElement ? document.documentElement.scrollTop : 0,
 		document.body ? document.body.scrollTop : 0
 	);
-};
+}
 
 DisplayEngine.prototype.filterResults = function(n_win, n_docel, n_body) {
 	var n_result = n_win ? n_win : 0;
 	if (n_docel && (!n_result || (n_result > n_docel)))
 		n_result = n_docel;
 	return n_body && (!n_result || (n_result > n_body)) ? n_body : n_result;
-};
+}
 
 DisplayEngine.prototype.requestAnimFrame = (function () {
     return window.requestAnimationFrame ||
