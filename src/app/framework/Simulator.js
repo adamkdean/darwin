@@ -1,4 +1,5 @@
 function Simulator() {
+
 	this.parent = {};
 	this.bounds = {
 		top: 0,
@@ -6,23 +7,37 @@ function Simulator() {
 		bottom: 0,
 		right: 0
 	};
+
+	this.time = {};
+	this.time.ticks = 0;
+	this.time.seconds = 0;
+
+	this.entities = {};
+	this.entities.food = [];
 }
 
 Simulator.prototype.init = function(parent) {
 	this.parent = parent;
-
 	this.bounds = {
 		top: -parent.canvasHeight / 2,
 		left: -parent.canvasWidth / 2,
 		bottom: parent.canvasHeight / 2,
 		right: parent.canvasWidth / 2
 	};
-
-	console.log(this.bounds);
 };
 
 Simulator.prototype.update = function() {
-	// update
+	this.updateTime();
+
+};
+
+Simulator.prototype.updateTime = function() {
+	this.time.ticks++;
+	if (this.time.ticks % 60 == 0) {
+		this.time.seconds++;
+	}
+
+	Labels.setLabel('bl', this.time.seconds + '.' + StringHelper.pad(this.time.ticks % 60, 2));
 };
 
 Simulator.prototype.draw = function(context) {
