@@ -110,7 +110,6 @@ DisplayEngine.prototype.loop = function(instance) {
 
 	Labels.setLabel('br', 'Update: ' + elapsedUpdate + 'ms, Draw: ' + elapsedDraw + 'ms');
 
-
 	this.requestAnimFrame.call(window, function() {
 		instance.loop(instance);
 	});
