@@ -1,8 +1,6 @@
 function DisplayEngine(canvasId) {
-	this.displayCanvas = document.getElementById(canvasId);
-	this.displayContext = this.displayCanvas.getContext('2d');
-	this.bufferCanvas = document.createElement('canvas');
-	this.bufferContext = this.bufferCanvas.getContext('2d');
+	this.canvas = document.getElementById(canvasId);
+	this.context = this.canvas.getContext('2d');
 	this.canvasWidth = 0;
 	this.canvasHeight = 0;
 	this.elements = [];
@@ -65,10 +63,8 @@ DisplayEngine.prototype.add = function(element) {
 DisplayEngine.prototype.resize = function (instance) {
 	instance.canvasWidth = instance.getClientWidth();
 	instance.canvasHeight = instance.getClientHeight();
-	instance.displayCanvas.setAttribute('width', instance.canvasWidth);
-	instance.displayCanvas.setAttribute('height', instance.canvasHeight);
-	instance.bufferCanvas.setAttribute('width', instance.canvasWidth);
-	instance.bufferCanvas.setAttribute('height', instance.canvasHeight);
+	instance.canvas.setAttribute('width', instance.canvasWidth);
+	instance.canvas.setAttribute('height', instance.canvasHeight);
 }
 
 DisplayEngine.prototype.init = function() {
@@ -102,8 +98,19 @@ DisplayEngine.prototype.initLoop = function() {
 }
 
 DisplayEngine.prototype.loop = function(instance) {
+	var start, elapsedUpdate, elapsedDraw;
+
+	start = new Date().getTime();
 	instance.update();
+	elapsedUpdate = new Date().getTime() - start;
+
+	start = new Date().getTime();
 	instance.draw();
+	elapsedDraw = new Date().getTime() - start;
+
+	Labels.setLabel('br', 'Update: ' + elapsedUpdate + 'ms, Draw: ' + elapsedDraw + 'ms');
+
+
 	this.requestAnimFrame.call(window, function() {
 		instance.loop(instance);
 	});
@@ -120,15 +127,8 @@ DisplayEngine.prototype.updateElements = function() {
 }
 
 DisplayEngine.prototype.draw = function() {
-	var doubleBuffer = false;
-	if (doubleBuffer) {
-		this.clearContext(this.bufferContext);
-		this.drawElements(this.bufferContext);
-		this.drawDoubleBuffer(this.displayContext, this.bufferCanvas);
-	} else {
-		this.clearContext(this.displayContext);
-		this.drawElements(this.displayContext);
-	}
+	this.clearContext(this.context);
+	this.drawElements(this.context);
 }
 
 DisplayEngine.prototype.clearContext = function(context) {

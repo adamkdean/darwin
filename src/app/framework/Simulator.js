@@ -38,18 +38,18 @@ Simulator.prototype.updateTime = function() {
 	}
 
 	Labels.setLabel('bl', this.time.seconds + '.' + StringHelper.pad(this.time.ticks % 60, 2));
-	Labels.setLabel('br', this.time.ticks);
 };
 
 Simulator.prototype.updateFood = function() {
 	// should we add another?
-	if (this.time.ticks % 60 == 0) {
+	//if (this.time.ticks % 60 == 0) {
+	if (this.time.ticks <= 10) {
 		var x, y, food;
 		x = MathHelper.getRandomInt(this.bounds.left, this.bounds.right);
 		y = MathHelper.getRandomInt(this.bounds.top, this.bounds.bottom);
 		food = new Food(x, y);
 		food.init(this);
-		this.entities.food.push(food);
+		//this.entities.food.push(food);
 	}
 
 	this.entities.food.forEach(function(element) {
@@ -62,7 +62,10 @@ Simulator.prototype.draw = function(context) {
 };
 
 Simulator.prototype.drawFood = function(context) {
+	context.fillStyle = 'green';
+	context.beginPath();
 	this.entities.food.forEach(function(element) {
 		element.draw(context);
 	});
+	context.closePath();
 };

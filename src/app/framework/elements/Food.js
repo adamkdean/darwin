@@ -8,7 +8,7 @@ Food.prototype.init = function(parent) {
 	this.parent = parent;
 	this.canvasX = this.x + this.parent.bounds.right;
 	this.canvasY = this.y + this.parent.bounds.bottom;
-	this.canvasR = 4;
+	this.canvasR = 3;
 };
 
 Food.prototype.update = function() {
@@ -20,8 +20,8 @@ Food.prototype.draw = function(context) {
 	//this.parent.bounds.
 
 	//console.log('food draw', x, y, radius);
+
 	context.moveTo(this.canvasX, this.canvasY);
 	context.arc(this.canvasX, this.canvasY, this.canvasR, 0, MathHelper.TAU, false);
-	context.fillStyle = 'black';
 	context.fill();
 };
