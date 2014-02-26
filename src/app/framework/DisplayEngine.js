@@ -1,6 +1,8 @@
 function DisplayEngine(canvasId) {
-	this.canvas = document.getElementById(canvasId);
-	this.context = this.canvas.getContext('2d');
+	this.displayCanvas = document.getElementById(canvasId);
+	this.displayContext = this.displayCanvas.getContext('2d');
+	this.bufferCanvas = document.createElement('canvas');
+	this.bufferContext = this.bufferCanvas.getContext('2d');
 	this.canvasWidth = 0;
 	this.canvasHeight = 0;
 	this.elements = [];
@@ -51,20 +53,22 @@ DisplayEngine.prototype.requestAnimFrame = (function () {
         window.mozRequestAnimationFrame ||
         function (callback) {
             window.setTimeout(callback, 1000 / 60);
-    };
+    	};
 })();
 
 
 DisplayEngine.prototype.add = function(element) {
+	// push element to array
 	this.elements.push(element);
 }
 
 DisplayEngine.prototype.resize = function (instance) {
-	console.log('resize');
 	instance.canvasWidth = instance.getClientWidth();
 	instance.canvasHeight = instance.getClientHeight();
-	instance.canvas.setAttribute('width', instance.canvasWidth);
-	instance.canvas.setAttribute('height', instance.canvasHeight);
+	instance.displayCanvas.setAttribute('width', instance.canvasWidth);
+	instance.displayCanvas.setAttribute('height', instance.canvasHeight);
+	instance.bufferCanvas.setAttribute('width', instance.canvasWidth);
+	instance.bufferCanvas.setAttribute('height', instance.canvasHeight);
 }
 
 DisplayEngine.prototype.init = function() {
@@ -116,12 +120,28 @@ DisplayEngine.prototype.updateElements = function() {
 }
 
 DisplayEngine.prototype.draw = function() {
-	this.drawElements();
+	var doubleBuffer = false;
+	if (doubleBuffer) {
+		this.clearContext(this.bufferContext);
+		this.drawElements(this.bufferContext);
+		this.drawDoubleBuffer(this.displayContext, this.bufferCanvas);
+	} else {
+		this.clearContext(this.displayContext);
+		this.drawElements(this.displayContext);
+	}
 }
 
-DisplayEngine.prototype.drawElements = function() {
-	var _this = this;
+DisplayEngine.prototype.clearContext = function(context) {
+	context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+	context.beginPath();
+}
+
+DisplayEngine.prototype.drawElements = function(context) {
 	this.elements.forEach(function(element) {
-		element.draw(_this.context);
+		element.draw(context);
 	})
+}
+
+DisplayEngine.prototype.drawDoubleBuffer = function(display, buffer) {
+	display.drawImage(buffer, 0, 0);
 }

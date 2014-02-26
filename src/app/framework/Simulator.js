@@ -38,6 +38,7 @@ Simulator.prototype.updateTime = function() {
 	}
 
 	Labels.setLabel('bl', this.time.seconds + '.' + StringHelper.pad(this.time.ticks % 60, 2));
+	Labels.setLabel('br', this.time.ticks);
 };
 
 Simulator.prototype.updateFood = function() {

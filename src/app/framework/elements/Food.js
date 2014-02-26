@@ -6,6 +6,9 @@ function Food(x, y) {
 
 Food.prototype.init = function(parent) {
 	this.parent = parent;
+	this.canvasX = this.x + this.parent.bounds.right;
+	this.canvasY = this.y + this.parent.bounds.bottom;
+	this.canvasR = 4;
 };
 
 Food.prototype.update = function() {
@@ -16,15 +19,9 @@ Food.prototype.draw = function(context) {
 	// draw
 	//this.parent.bounds.
 
-	console.log(this.parent.bounds);
-
-	var x = this.x + this.parent.bounds.right,
-		y = this.y + this.parent.bounds.bottom,
-		radius = 4;
-
 	//console.log('food draw', x, y, radius);
-	context.moveTo(x, y);
-	context.arc(x, y, radius, 0, 2 * Math.PI, false);
+	context.moveTo(this.canvasX, this.canvasY);
+	context.arc(this.canvasX, this.canvasY, this.canvasR, 0, MathHelper.TAU, false);
 	context.fillStyle = 'black';
 	context.fill();
 };
