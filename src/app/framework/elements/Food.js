@@ -18,12 +18,12 @@ Food.prototype.draw = function(context) {
 
 	console.log(this.parent.bounds);
 
-	var x = this.parent.bounds.left - x,
-		y = this.parent.bounds.top - y,
+	var x = this.x + this.parent.bounds.right,
+		y = this.y + this.parent.bounds.bottom,
 		radius = 4;
 
 	//console.log('food draw', x, y, radius);
-
+	context.moveTo(x, y);
 	context.arc(x, y, radius, 0, 2 * Math.PI, false);
 	context.fillStyle = 'black';
 	context.fill();
