@@ -1,6 +1,5 @@
 function DisplayEngine(canvasId) {
 	this.canvas = document.getElementById(canvasId);
-	this.context = this.canvas.getContext('2d');
 	this.canvasWidth = 0;
 	this.canvasHeight = 0;
 	this.elements = [];
@@ -73,23 +72,23 @@ DisplayEngine.prototype.init = function() {
 	this.initLoop();
 }
 
+DisplayEngine.prototype.initSelf = function() {
+	var _this = this;
+	window.addEventListener('resize', function() {
+		_this.resize(_this);
+	}, false);
+	this.resize(this);
+
+	paper.setup(this.canvas);
+	// continue with paper.js
+	// http://paperjs.org/tutorials/getting-started/using-javascript-directly/
+}
+
 DisplayEngine.prototype.initElements = function() {
 	var _this = this;
 	this.elements.forEach(function(element) {
 		element.init(_this);
 	})
-}
-
-DisplayEngine.prototype.initSelf = function() {
-	var _this = this;
-
-	// add listener for resize
-	window.addEventListener('resize', function() {
-		_this.resize(_this);
-	}, false);
-
-	// call resize once
-	this.resize(this);
 }
 
 DisplayEngine.prototype.initLoop = function() {
