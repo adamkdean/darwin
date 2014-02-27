@@ -8,7 +8,9 @@ $(function() {
     // displayEngine.add(simulator);
     // displayEngine.init();
 
-    paper.setup(this.canvas);
+    var canvas = document.getElementById('canvas');
+
+    paper.setup(canvas);
     // Create a Paper.js Path to draw a line into it:
     var path = new paper.Path();
     // Give the stroke a color
