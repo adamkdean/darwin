@@ -2,20 +2,46 @@ function Food(x, y) {
     this.parent = {};
     this.x = x;
     this.y = y;
+    this.energy = 5;
+    this.maxEnergy = 20;
 }
 
 Food.prototype.init = function(parent) {
     this.parent = parent;
-    this.canvasX = this.x + this.parent.bounds.right;
-    this.canvasY = this.y + this.parent.bounds.bottom;
-    this.radius = 3;
-    this.shape =  new Path.Circle(new Point(this.canvasX, this.canvasY), this.radius);
-    this.shape.fillColor = 'green';
-};
+    this.initShape();
+}
+
+Food.prototype.initShape = function() {
+    var canvasX = this.x + this.parent.bounds.right;
+    var canvasY = this.y + this.parent.bounds.bottom;
+    this.shape =  new Path.Circle({
+        center: [canvasX, canvasY],
+        radius: this.calculateRadius(this.energy),
+        fillColor: 'green'
+    });
+}
 
 Food.prototype.update = function() {
-    // update
-    this.canvasX += MathHelper.getRandomArbitrary(-1, 1);
-    this.canvasY += MathHelper.getRandomArbitrary(-1, 1);
-    this.shape.position = new Point(this.canvasX, this.canvasY);
-};
+    this.updateEnergy();
+    this.updateRadius();
+}
+
+Food.prototype.updateEnergy = function() {
+    if (this.parent.time.ticks % 60 == 0) {
+        if (this.energy < this.maxEnergy) {
+            this.energy = (this.energy + 1 > this.maxEnergy)
+                ? this.maxEnergy
+                : this.energy + 1;
+        }
+    }
+}
+
+Food.prototype.updateRadius = function() {
+    var currentRadius = this.shape.bounds.width / 2;
+    var newRadius = this.calculateRadius(this.energy);
+    this.shape.scale(newRadius / currentRadius);
+}
+
+Food.prototype.calculateRadius = function(value) {
+    return value / 10;
+}

@@ -49,6 +49,7 @@ DisplayEngine.prototype.updateElements = function() {
         element.update();
     });
 }
+
 DisplayEngine.prototype.add = function(element) {
     this.elements.push(element);
 }
