@@ -1,5 +1,4 @@
 function Simulator() {
-
     this.parent = {};
     this.bounds = {
         top: 0,
@@ -54,15 +53,5 @@ Simulator.prototype.updateFood = function() {
 
     this.entities.food.forEach(function(element) {
         element.update();
-    });
-};
-
-Simulator.prototype.draw = function() {
-    this.drawFood();
-};
-
-Simulator.prototype.drawFood = function() {
-    this.entities.food.forEach(function(element) {
-        element.draw();
     });
 };

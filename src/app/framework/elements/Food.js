@@ -19,7 +19,3 @@ Food.prototype.update = function() {
     this.canvasY += MathHelper.getRandomArbitrary(-1, 1);
     this.shape.position = new Point(this.canvasX, this.canvasY);
 };
-
-Food.prototype.draw = function() {
-    //
-};

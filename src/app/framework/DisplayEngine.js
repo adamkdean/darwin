@@ -41,12 +41,7 @@ DisplayEngine.prototype.onResize = function(event, instance) {
 }
 
 DisplayEngine.prototype.onFrame = function(event, instance) {
-	instance.update();
-    instance.draw();
-}
-
-DisplayEngine.prototype.update = function() {
-    this.updateElements();
+	instance.updateElements();
 }
 
 DisplayEngine.prototype.updateElements = function() {
@@ -54,18 +49,6 @@ DisplayEngine.prototype.updateElements = function() {
         element.update();
     });
 }
-
-DisplayEngine.prototype.draw = function() {
-    this.drawElements();
-    //paper.view.draw();
-}
-
-DisplayEngine.prototype.drawElements = function() {
-    this.elements.forEach(function(element) {
-        element.draw();
-    })
-}
-
 DisplayEngine.prototype.add = function(element) {
     this.elements.push(element);
 }
