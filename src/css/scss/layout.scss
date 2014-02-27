@@ -3,44 +3,44 @@ $label-padding: 1px 2px;
 $label-offset: 8px;
 
 body {
-	background: url($background-image);
+    background: url($background-image);
 }
 
 canvas {
-	position: fixed;
-	top: 0;
-	left: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 p {
-	&.label {
-		position: absolute;
-		padding: $label-padding;
-		margin: 0;
+    &.label {
+        position: absolute;
+        padding: $label-padding;
+        margin: 0;
 
-		background: white;
-		border: 1px solid black;
-		font-family: "Courier New", monospace;
-		font-size: 12px;
+        background: white;
+        border: 1px solid black;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
 
-		&.top-left {
-			top: $label-offset;
-			left: $label-offset;
-		}
+        &.top-left {
+            top: $label-offset;
+            left: $label-offset;
+        }
 
-		&.top-right {
-			top: $label-offset;
-			right: $label-offset;
-		}
+        &.top-right {
+            top: $label-offset;
+            right: $label-offset;
+        }
 
-		&.bottom-left {
-			bottom: $label-offset;
-			left: $label-offset;
-		}
+        &.bottom-left {
+            bottom: $label-offset;
+            left: $label-offset;
+        }
 
-		&.bottom-right {
-			bottom: $label-offset;
-			right: $label-offset;
-		}
-	}
+        &.bottom-right {
+            bottom: $label-offset;
+            right: $label-offset;
+        }
+    }
 }
