@@ -3,14 +3,13 @@ $label-padding: 1px 2px;
 $label-offset: 8px;
 
 body {
-    //background: url($background-image);
+    background: url($background-image);
 }
 
 canvas {
     position: fixed;
     top: 0;
     left: 0;
-    background:#ccc;
 }
 
 p {
