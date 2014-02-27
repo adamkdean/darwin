@@ -19,10 +19,10 @@ function Simulator() {
 Simulator.prototype.init = function(parent) {
     this.parent = parent;
     this.bounds = {
-        top: -parent.canvasHeight / 2,
-        left: -parent.canvasWidth / 2,
-        bottom: parent.canvasHeight / 2,
-        right: parent.canvasWidth / 2
+        top: -parent.height / 2,
+        left: -parent.width / 2,
+        bottom: parent.height / 2,
+        right: parent.width / 2
     };
 };
 
@@ -43,13 +43,13 @@ Simulator.prototype.updateTime = function() {
 Simulator.prototype.updateFood = function() {
     // should we add another?
     //if (this.time.ticks % 60 == 0) {
-    if (this.time.ticks <= 10) {
+    if (this.time.ticks <= 20) {
         var x, y, food;
         x = MathHelper.getRandomInt(this.bounds.left, this.bounds.right);
         y = MathHelper.getRandomInt(this.bounds.top, this.bounds.bottom);
         food = new Food(x, y);
         food.init(this);
-        //this.entities.food.push(food);
+        this.entities.food.push(food);
     }
 
     this.entities.food.forEach(function(element) {
@@ -57,15 +57,12 @@ Simulator.prototype.updateFood = function() {
     });
 };
 
-Simulator.prototype.draw = function(context) {
-    this.drawFood(context);
+Simulator.prototype.draw = function() {
+    this.drawFood();
 };
 
-Simulator.prototype.drawFood = function(context) {
-    context.fillStyle = 'green';
-    context.beginPath();
+Simulator.prototype.drawFood = function() {
     this.entities.food.forEach(function(element) {
-        element.draw(context);
+        element.draw();
     });
-    context.closePath();
 };

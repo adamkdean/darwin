@@ -11,4 +11,4 @@ var Labels = {
     showLabel: function(label) {
         $('#' + label).show();
     },
-};
+};;

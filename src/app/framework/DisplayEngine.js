@@ -1,33 +1,31 @@
 function DisplayEngine(canvasId) {
     this.canvas = document.getElementById(canvasId);
-    this.canvasWidth = 0;
-    this.canvasHeight = 0;
     this.elements = [];
-}
-
-DisplayEngine.prototype.requestAnimFrame = (function () {
-    return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 1000 / 60);
-        };
-})();
-
-
-DisplayEngine.prototype.add = function(element) {
-    // push element to array
-    this.elements.push(element);
+    this.width = 0;
+    this.height = 0;
 }
 
 DisplayEngine.prototype.init = function() {
     this.initPaper();
+    this.initEvents();
     this.initElements();
-    this.loop(this);
 }
 
 DisplayEngine.prototype.initPaper = function() {
+	paper.install(window);
     paper.setup(this.canvas);
+    this.width = paper.view.size.width;
+    this.height = paper.view.size.height;
+}
+
+DisplayEngine.prototype.initEvents = function() {
+	var _this = this;
+	paper.view.onResize = function(event) {
+    	_this.onResize(event, _this);
+    };
+    paper.view.onFrame = function(event) {
+    	_this.onFrame(event, _this);
+    };
 }
 
 DisplayEngine.prototype.initElements = function() {
@@ -37,12 +35,14 @@ DisplayEngine.prototype.initElements = function() {
     })
 }
 
-DisplayEngine.prototype.loop = function(instance) {
-    instance.update();
+DisplayEngine.prototype.onResize = function(event, instance) {
+	instance.width = paper.view.size.width;
+    instance.height = paper.view.size.height;
+}
+
+DisplayEngine.prototype.onFrame = function(event, instance) {
+	instance.update();
     instance.draw();
-    this.requestAnimFrame.call(window, function() {
-        instance.loop(instance);
-    });
 }
 
 DisplayEngine.prototype.update = function() {
@@ -56,12 +56,16 @@ DisplayEngine.prototype.updateElements = function() {
 }
 
 DisplayEngine.prototype.draw = function() {
-    this.drawElements(this.context);
-    paper.view.draw();
+    this.drawElements();
+    //paper.view.draw();
 }
 
-DisplayEngine.prototype.drawElements = function(context) {
+DisplayEngine.prototype.drawElements = function() {
     this.elements.forEach(function(element) {
-        element.draw(context);
+        element.draw();
     })
+}
+
+DisplayEngine.prototype.add = function(element) {
+    this.elements.push(element);
 }
