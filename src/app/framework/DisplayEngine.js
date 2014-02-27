@@ -23,11 +23,11 @@ DisplayEngine.prototype.add = function(element) {
 DisplayEngine.prototype.init = function() {
     this.initPaper();
     this.initElements();
-    this.initLoop();
+    this.loop(this);
 }
 
 DisplayEngine.prototype.initPaper = function() {
-	//
+    paper.setup(this.canvas);
 }
 
 DisplayEngine.prototype.initElements = function() {
@@ -35,11 +35,6 @@ DisplayEngine.prototype.initElements = function() {
     this.elements.forEach(function(element) {
         element.init(_this);
     })
-}
-
-DisplayEngine.prototype.initLoop = function() {
-    this.resize(this);
-    this.loop(this);
 }
 
 DisplayEngine.prototype.loop = function(instance) {
@@ -51,7 +46,7 @@ DisplayEngine.prototype.loop = function(instance) {
 }
 
 DisplayEngine.prototype.update = function() {
-    //this.updateElements();
+    this.updateElements();
 }
 
 DisplayEngine.prototype.updateElements = function() {
@@ -61,7 +56,8 @@ DisplayEngine.prototype.updateElements = function() {
 }
 
 DisplayEngine.prototype.draw = function() {
-    //this.drawElements(this.context);
+    this.drawElements(this.context);
+    paper.view.draw();
 }
 
 DisplayEngine.prototype.drawElements = function(context) {
